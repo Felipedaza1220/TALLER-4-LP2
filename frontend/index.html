@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rutinas de Gimnasio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>Rutinas de Gimnasio</h1>
+        <p>Consulta ejercicios y categorías</p>
+    </header>
+
+    <main>
+        <section class="filtro">
+            <label for="categoria">Filtrar por categoría:</label>
+
+            <select id="categoria">
+                <option value="">Todas las categorías</option>
+            </select>
+        </section>
+
+        <section>
+            <h2>Ejercicios</h2>
+
+            <div id="ejercicios" class="grid">
+                <p>Cargando ejercicios...</p>
+            </div>
+        </section>
+
+        <section id="detalle" class="detalle oculto">
+            <h2>Detalle del ejercicio</h2>
+
+            <div id="detalle-contenido"></div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

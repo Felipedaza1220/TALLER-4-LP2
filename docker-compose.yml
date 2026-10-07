@@ -1,0 +1,42 @@
+services:
+  database:
+    image: postgres:15
+    container_name: taller4_database
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: ./api
+    container_name: taller4_api
+    environment:
+      DATABASE_URL: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}
+    depends_on:
+      database:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    container_name: taller4_frontend
+    depends_on:
+      - api
+
+  reverse-proxy:
+    build: ./reverse-proxy
+    container_name: taller4_reverse_proxy
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+      - frontend
+
+volumes:
+  pgdata:

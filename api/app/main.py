@@ -9,12 +9,12 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(
     title="API de Rutinas de Gimnasio",
     description="API para gestionar categorías y ejercicios",
-    version="1.0.0"
+    version="1.0.0",
+    root_path="/api"
 )
 
 app.include_router(categorias.router)
 app.include_router(ejercicios.router)
-
 
 @app.get("/")
 def root():
